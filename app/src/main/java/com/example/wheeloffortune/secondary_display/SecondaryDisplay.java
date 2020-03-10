@@ -20,6 +20,7 @@ import com.example.wheeloffortune.R;
 import com.example.wheeloffortune.adapter.PuzzleAdapter;
 import com.example.wheeloffortune.util.UiUtil;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -44,6 +45,9 @@ public class SecondaryDisplay extends Presentation implements SecondaryDisplayCo
 
     @BindView(R.id.puzzle_category)
     TextView puzzleCategoryTV;
+
+    @BindView(R.id.letters_guessed)
+    TextView lettersGuessed;
 
     @BindView(R.id.player_one_name)
     TextView playerOneName;
@@ -101,7 +105,7 @@ public class SecondaryDisplay extends Presentation implements SecondaryDisplayCo
 
     @Override
     public void setPuzzleCategory(String puzzleCategory) {
-        puzzleCategoryTV.setText(String.format("CATEGORY: %s", puzzleCategory.toUpperCase()));
+        puzzleCategoryTV.setText(String.format("%s", puzzleCategory.toUpperCase()));
     }
 
     @Override
@@ -121,6 +125,11 @@ public class SecondaryDisplay extends Presentation implements SecondaryDisplayCo
         } else {
             playerThreeName.setTextColor(UiUtil.setColorHelper(context, R.color.light_gray));
         }
+    }
+
+    @Override
+    public void setLettersGuessed(ArrayList<String> lettersGuessedArrayList) {
+        lettersGuessed.setText(String.format("LETTERS GUESSED\n%s", lettersGuessedArrayList.toString()));
     }
 
     @Override

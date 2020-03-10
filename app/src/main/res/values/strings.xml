@@ -14,8 +14,9 @@
     <string name="player_two_name">PLAYER 2</string>
     <string name="player_three_name">PLAYER 3</string>
     <string name="placeholder_money">$0</string>
-    <string name="category_placeholder">CATEGORY:</string>
+    <string name="category_placeholder">CATEGORY</string>
     <string name="switch_player_button">Switch Player</string>
+    <string name="letters_guessed">LETTERS GUESSED</string>
 
 
 </resources>

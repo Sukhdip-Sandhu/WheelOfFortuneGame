@@ -1,11 +1,10 @@
 package com.example.wheeloffortune.secondary_display;
 
-import android.media.MediaPlayer;
-
 import com.example.wheeloffortune.R;
 import com.example.wheeloffortune.model.Player;
 import com.example.wheeloffortune.util.PuzzleUtil;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Presenter {
@@ -22,6 +21,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     private char[] userAnswer;
     private int playerTurn = 0;
     private long degrees = 0;
+    private ArrayList<String> lettersGuessed;
 
     private int currentWheelValue = 0;
 
@@ -33,6 +33,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     @Override
     public void onSetPuzzle(String puzzleName) {
+        lettersGuessed = new ArrayList<>();
         puzzleAnswer = puzzleUtil.formatPuzzle(puzzleName);
         userAnswer = puzzleUtil.formatUserAnswer(puzzleAnswer);
         view.playSound(R.raw.puzzle_start);
@@ -76,6 +77,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     @Override
     public void onGuessConsonant(String consonant) {
+        lettersGuessed.add(consonant);
         boolean letterAppears = false;
         int howManyTimes = 0;
 
@@ -94,6 +96,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
             view.playSound(R.raw.correct_letter);
             view.updatePuzzleGridView(userAnswer);
         } else {
+            view.setLettersGuessed(lettersGuessed);
             view.playSound(R.raw.incorrect_letter);
             nextPlayerTurn();
         }
@@ -102,6 +105,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     @Override
     public void onBuyVowel(String vowel) {
+        lettersGuessed.add(vowel);
         boolean letterAppears = false;
         if (getPlayer(playerTurn).canBuyVowel()) {
             addUserScore(playerTurn, -250);
@@ -119,6 +123,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
                 view.playSound(R.raw.correct_letter);
                 view.updatePuzzleGridView(userAnswer);
             } else {
+                view.setLettersGuessed(lettersGuessed);
                 view.playSound(R.raw.incorrect_letter);
                 nextPlayerTurn();
             }

@@ -1,5 +1,7 @@
 package com.example.wheeloffortune.secondary_display;
 
+import java.util.ArrayList;
+
 public interface SecondaryDisplayContract {
 
     interface View {
@@ -8,6 +10,8 @@ public interface SecondaryDisplayContract {
         void setPuzzleCategory(String puzzleCategory);
 
         void highlightPlayer(int playerTurn);
+
+        void setLettersGuessed(ArrayList<String> lettersGuessedArrayList);
 
         void setPlayerOneName(String name);
 
