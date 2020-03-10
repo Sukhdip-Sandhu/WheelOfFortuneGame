@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="wof_red">#C70003</color>
+    <color name="wof_yellow">#FFCC21</color>
+    <color name="wof_blue">#2220FF</color>
+    <color name="wof_green">#18826F</color>
+    <color name="wof_green_dk">#146c5d</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_gray">#D3D3D3</color>
+    <color name="off_white">#F7F7F7</color>
+    <color name="transparent">#AA000000</color>
+
+</resources>
