@@ -36,6 +36,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
         lettersGuessed = new ArrayList<>();
         puzzleAnswer = puzzleUtil.formatPuzzle(puzzleName);
         userAnswer = puzzleUtil.formatUserAnswer(puzzleAnswer);
+        view.toggleBackgroundMusic(true);
         view.playSound(R.raw.puzzle_start);
         view.updatePuzzleGridView(userAnswer);
         view.highlightPlayer(playerTurn);
@@ -136,6 +137,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     @Override
     public void onSolvePuzzle(boolean isCorrect, String puzzleName) {
         if (isCorrect) {
+            view.toggleBackgroundMusic(false);
             view.playSound(R.raw.puzzle_solved);
             view.updatePuzzleGridView(puzzleAnswer);
         } else {

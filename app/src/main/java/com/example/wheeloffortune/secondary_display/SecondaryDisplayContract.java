@@ -27,6 +27,8 @@ public interface SecondaryDisplayContract {
 
         void spinWheel();
 
+        void toggleBackgroundMusic(boolean turnMusicOn);
+
         void playSound(int audioFile);
     }
 

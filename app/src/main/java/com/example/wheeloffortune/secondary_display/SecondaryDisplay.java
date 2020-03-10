@@ -34,6 +34,7 @@ public class SecondaryDisplay extends Presentation implements SecondaryDisplayCo
 
     private Context context;
     private PuzzleAdapter puzzleAdapter;
+    private MediaPlayer backgroundMusicMediaPlayer;
 
     private long degrees = 0;
     private String[] wheelOfFortuneValues = {"Bankrupt", "900", "500", "650", "500", "800", "Lose Turn",
@@ -178,6 +179,19 @@ public class SecondaryDisplay extends Presentation implements SecondaryDisplayCo
         rotateAnimation.setFillAfter(true);
         wheel.setAnimation(rotateAnimation);
         wheel.startAnimation(rotateAnimation);
+    }
+
+    @Override
+    public void toggleBackgroundMusic(boolean turnMusicOn) {
+        if (turnMusicOn) {
+            backgroundMusicMediaPlayer = MediaPlayer.create(getContext(), R.raw.background_music);
+            backgroundMusicMediaPlayer.setLooping(true);
+            backgroundMusicMediaPlayer.start();
+        } else {
+            if (backgroundMusicMediaPlayer != null) {
+                backgroundMusicMediaPlayer.stop();
+            }
+        }
     }
 
     @Override
