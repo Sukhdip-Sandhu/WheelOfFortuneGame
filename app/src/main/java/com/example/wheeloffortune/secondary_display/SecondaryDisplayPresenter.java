@@ -34,6 +34,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     @Override
     public void onSetPuzzle(String puzzleName) {
         lettersGuessed = new ArrayList<>();
+        view.setLettersGuessed(lettersGuessed);
         puzzleAnswer = puzzleUtil.formatPuzzle(puzzleName);
         userAnswer = puzzleUtil.formatUserAnswer(puzzleAnswer);
         view.toggleBackgroundMusic(true);
@@ -78,7 +79,6 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     @Override
     public void onGuessConsonant(String consonant) {
-        lettersGuessed.add(consonant);
         boolean letterAppears = false;
         int howManyTimes = 0;
 
@@ -97,6 +97,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
             view.playSound(R.raw.correct_letter);
             view.updatePuzzleGridView(userAnswer);
         } else {
+            lettersGuessed.add(consonant);
             view.setLettersGuessed(lettersGuessed);
             view.playSound(R.raw.incorrect_letter);
             nextPlayerTurn();
@@ -106,7 +107,6 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     @Override
     public void onBuyVowel(String vowel) {
-        lettersGuessed.add(vowel);
         boolean letterAppears = false;
         if (getPlayer(playerTurn).canBuyVowel()) {
             addUserScore(playerTurn, -250);
@@ -124,6 +124,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
                 view.playSound(R.raw.correct_letter);
                 view.updatePuzzleGridView(userAnswer);
             } else {
+                lettersGuessed.add(vowel);
                 view.setLettersGuessed(lettersGuessed);
                 view.playSound(R.raw.incorrect_letter);
                 nextPlayerTurn();
