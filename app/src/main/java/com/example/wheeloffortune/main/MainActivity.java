@@ -3,21 +3,16 @@ package com.example.wheeloffortune.main;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.wheeloffortune.R;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @BindView(R.id.spin_wheel_button)
     Button spinWheelButton;
-
-    @BindView(R.id.guess_consonant)
-    Button guessConsonantButton;
 
     @BindView(R.id.buy_vowel_button)
     Button buyVowelButton;
@@ -58,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         newGameButton.setOnClickListener(v -> createNewGameDialog());
         spinWheelButton.setOnClickListener(v -> presenter.onSpinWheel());
-        guessConsonantButton.setOnClickListener(v -> guessConsonantDialog());
         buyVowelButton.setOnClickListener(v -> buyVowelDialog());
         solvePuzzleButton.setOnClickListener(v -> solvePuzzleDialog());
         switchPlayerButton.setOnClickListener(v -> presenter.onSwitchPlayer());
@@ -123,53 +114,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         newGameDialog.show();
     }
 
-    private void guessConsonantDialog() {
-        AlertDialog.Builder guessConsonantDialog = new AlertDialog.Builder(this);
-
-        LinearLayout layout = new LinearLayout(getApplicationContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-        final EditText consonantET = new EditText(getApplicationContext());
-        consonantET.setHint("Please enter a consonant");
-        consonantET.setPadding(32, 32, 32, 32);
-        consonantET.setTextSize(24f);
-        consonantET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
-
-        consonantET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s != null && s.length() > 1) {
-                    consonantET.setText(s.subSequence(1, s.length()));
-                    consonantET.setSelection(1);
-                }
-            }
-        });
-
-        layout.addView(consonantET);
-
-        guessConsonantDialog.setView(layout);
-
-        guessConsonantDialog.setPositiveButton("GUESS", (dialog, which) -> {
-            String consonant = consonantET.getText().toString();
-            presenter.onGuessConsonant(consonant);
-        });
-
-        guessConsonantDialog.setNegativeButton("CANCEL", (dialog, which) -> {
-        });
-
-        guessConsonantDialog.show();
-    }
-
     private void buyVowelDialog() {
         AlertDialog.Builder guessConsonantDialog = new AlertDialog.Builder(this);
 
@@ -228,14 +172,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         if (startGame) {
             newGameButton.setEnabled(false);
             spinWheelButton.setEnabled(true);
-            guessConsonantButton.setEnabled(true);
-            buyVowelButton.setEnabled(true);
             solvePuzzleButton.setEnabled(true);
             switchPlayerButton.setEnabled(true);
         } else {
             newGameButton.setEnabled(true);
             spinWheelButton.setEnabled(false);
-            guessConsonantButton.setEnabled(false);
             buyVowelButton.setEnabled(false);
             solvePuzzleButton.setEnabled(false);
             switchPlayerButton.setEnabled(false);
@@ -243,7 +184,58 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    public void showConsonantDialog() {
+        AlertDialog.Builder guessConsonantDialog = new AlertDialog.Builder(this);
+
+        LinearLayout layout = new LinearLayout(getApplicationContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        final EditText consonantET = new EditText(getApplicationContext());
+        consonantET.setHint("Please enter a consonant");
+        consonantET.setPadding(32, 32, 32, 32);
+        consonantET.setTextSize(24f);
+        consonantET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+
+        consonantET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null && s.length() > 1) {
+                    consonantET.setText(s.subSequence(1, s.length()));
+                    consonantET.setSelection(1);
+                }
+            }
+        });
+
+        layout.addView(consonantET);
+
+        guessConsonantDialog.setView(layout);
+
+        guessConsonantDialog.setPositiveButton("GUESS", (dialog, which) -> {
+            String consonant = consonantET.getText().toString();
+            presenter.onGuessConsonant(consonant);
+        });
+
+        guessConsonantDialog.setCancelable(false);
+        guessConsonantDialog.show();
+    }
+
+    @Override
     public void displayToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void toggleVowelButton(boolean playerCanBuyVowel) {
+        buyVowelButton.setEnabled(playerCanBuyVowel);
     }
 }

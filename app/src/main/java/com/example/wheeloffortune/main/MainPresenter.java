@@ -28,7 +28,7 @@ public class MainPresenter implements MainContract.Presenter {
             if (presentationDisplays.length > 0) {
                 secondaryDisplay = new SecondaryDisplay(context, presentationDisplays[0]);
                 secondaryDisplay.show();
-                displayPresenter = new SecondaryDisplayPresenter(secondaryDisplay);
+                displayPresenter = new SecondaryDisplayPresenter(secondaryDisplay, this);
                 secondaryDisplay.passPresenter(displayPresenter);
             }
         }
@@ -55,6 +55,7 @@ public class MainPresenter implements MainContract.Presenter {
             displayPresenter.onGuessConsonant(consonant.toUpperCase());
         } else {
             view.displayToast("Please enter a valid consonant");
+            view.showConsonantDialog();
         }
     }
 
@@ -76,6 +77,16 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onSwitchPlayer() {
         displayPresenter.onSwitchPlayer();
+    }
+
+    @Override
+    public void onDisplayConsonantDialog() {
+        view.showConsonantDialog();
+    }
+
+    @Override
+    public void canBuyVowel(boolean playerCanBuyVowel) {
+        view.toggleVowelButton(playerCanBuyVowel);
     }
 
     private boolean isVowel(String vowel) {

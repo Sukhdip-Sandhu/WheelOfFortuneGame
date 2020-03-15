@@ -55,20 +55,6 @@
         android:text="@string/spin_wheel_button"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guess_consonant"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/guess_consonant"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/main_activity_button"
-        android:enabled="false"
-        android:text="@string/guess_consonant"
-        android:textColor="@color/white"
-        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/buy_vowel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

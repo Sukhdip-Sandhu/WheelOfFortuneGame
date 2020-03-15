@@ -4,7 +4,12 @@ public interface MainContract {
 
     interface View {
         void toggleButtons(boolean startGame);
+
+        void showConsonantDialog();
+
         void displayToast(String msg);
+
+        void toggleVowelButton(boolean playerCanBuyVowel);
     }
 
     interface Presenter {
@@ -21,6 +26,10 @@ public interface MainContract {
         void onSolvePuzzle(boolean b, String puzzleName);
 
         void onSwitchPlayer();
+
+        void onDisplayConsonantDialog();
+
+        void canBuyVowel(boolean playerCanBuyVowel);
     }
 
 }

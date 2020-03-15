@@ -1,6 +1,7 @@
 package com.example.wheeloffortune.secondary_display;
 
 import com.example.wheeloffortune.R;
+import com.example.wheeloffortune.main.MainPresenter;
 import com.example.wheeloffortune.model.Player;
 import com.example.wheeloffortune.util.PuzzleUtil;
 
@@ -12,6 +13,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     private static final String TAG = "WHEEL_OF_FORTUNE_TAG";
 
     private SecondaryDisplayContract.View view;
+    private MainPresenter mainPresenter;
     private PuzzleUtil puzzleUtil;
     private Player playerOne = new Player();
     private Player playerTwo = new Player();
@@ -25,8 +27,9 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
 
     private int currentWheelValue = 0;
 
-    public SecondaryDisplayPresenter(SecondaryDisplayContract.View view) {
+    public SecondaryDisplayPresenter(SecondaryDisplayContract.View view, MainPresenter mainPresenter) {
         this.view = view;
+        this.mainPresenter = mainPresenter;
         puzzleUtil = new PuzzleUtil();
         view.updatePuzzleGridView(puzzleUtil.getBlankStartingPuzzle());
     }
@@ -200,6 +203,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
         if (playerTurn == 3) {
             playerTurn = 0;
         }
+        mainPresenter.canBuyVowel(getPlayer(playerTurn).canBuyVowel());
         view.highlightPlayer(playerTurn);
     }
 
@@ -228,7 +232,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
         view.setPlayerOneScore(playerOne.getScore());
         view.setPlayerTwoScore(playerTwo.getScore());
         view.setPlayerThreeScore(playerThree.getScore());
-
+        mainPresenter.canBuyVowel(getPlayer(playerTurn).canBuyVowel());
     }
 
     public int getCurrentWheelValue() {
@@ -236,6 +240,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     }
 
     public void setCurrentWheelValue(int currentWheelValue) {
+        mainPresenter.onDisplayConsonantDialog();
         this.currentWheelValue = currentWheelValue;
     }
 
