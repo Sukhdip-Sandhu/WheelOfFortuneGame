@@ -1,8 +1,6 @@
 package com.example.wheeloffortune.util;
 
 
-import java.util.Arrays;
-
 /*
 THIS MIGHT BE THE DUMBEST CODE I"VE EVER WRITTEN BUT IT IS CURRENTLY 3:27am SO IN THE OFF CHANCE
 THAT YOU ARE READING THIS PLEASE ENJOY ...
@@ -14,19 +12,14 @@ public class PuzzleUtil {
     public static final char MISSING_LETTER = '_'; // represents a letter part of puzzle
     public static final char PLACEHOLDER = '-'; // placeholder character surrounds puzzle
 
-    private String puzzleAnswer;
-    private String userAnswer;
-    private char[] puzzleAnswerCharArray;
-    private char[] userAnswerCharArray;
-
     public PuzzleUtil() {
     }
 
     public char[] getBlankStartingPuzzle() {
-        String tmp = "";
+        StringBuilder tmp = new StringBuilder();
         for (int i = 0; i < SIZE_OF_GRID; i++)
-            tmp += PLACEHOLDER;
-        return tmp.toCharArray();
+            tmp.append(PLACEHOLDER);
+        return tmp.toString().toCharArray();
     }
 
     public char[] formatPuzzle(String puzzleAnswer) {
@@ -60,6 +53,7 @@ public class PuzzleUtil {
         }
         secondHalf = secondHalf.trim(); // string representing bottom row
         lenSecondRow = lenSecondRow - 1; // length of bottom row string
+        if (lenSecondRow < 0) lenSecondRow = 0;
 
         for (int j = 0; j < 14 - lenFirstRow; j++) {
             if (j % 2 == 1) {

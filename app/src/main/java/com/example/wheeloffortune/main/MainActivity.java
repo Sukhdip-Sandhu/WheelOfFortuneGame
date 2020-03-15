@@ -105,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         newGameDialog.setPositiveButton("BEGIN", (dialog, which) -> {
             String puzzleName = puzzleNameET.getText().toString();
+            if (puzzleName.length() > 28) {
+                displayToast("Puzzle name must be less than 28 characters long");
+                return;
+            }
             String puzzleCategory = puzzleCategoryET.getText().toString();
             String playerOneName = playerOneNameET.getText().toString();
             String playerTwoName = playerTwoNameET.getText().toString();
