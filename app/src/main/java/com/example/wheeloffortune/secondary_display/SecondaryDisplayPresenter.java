@@ -138,6 +138,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     @Override
     public void onSolvePuzzle(boolean isCorrect, String puzzleName) {
         if (isCorrect) {
+            removeLosersScore();
             view.toggleBackgroundMusic(false);
             view.playSound(R.raw.puzzle_solved);
             view.updatePuzzleGridView(puzzleAnswer);
@@ -161,6 +162,7 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
                 nextPlayerTurn();
                 break;
             case "Free Play":
+                // doesn't do anything different lol
                 setCurrentWheelValue(2000);
                 break;
             case "Million":
@@ -205,6 +207,20 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
         int tmpScore = getPlayer(playerTurn).getScore();
         tmpScore += score;
         getPlayer(playerTurn).setScore(tmpScore);
+        updateAllPlayerScores();
+    }
+
+    private void removeLosersScore() {
+        if (playerTurn == 0) {
+            playerTwo.setScore(0);
+            playerThree.setScore(0);
+        } else if (playerTurn == 1) {
+            playerOne.setScore(0);
+            playerThree.setScore(0);
+        } else if (playerTurn == 2) {
+            playerOne.setScore(0);
+            playerTwo.setScore(0);
+        }
         updateAllPlayerScores();
     }
 
