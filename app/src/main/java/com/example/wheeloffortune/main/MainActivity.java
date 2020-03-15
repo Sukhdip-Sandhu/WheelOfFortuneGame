@@ -3,16 +3,24 @@ package com.example.wheeloffortune.main;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.wheeloffortune.R;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -115,16 +123,18 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     private void buyVowelDialog() {
-        AlertDialog.Builder guessConsonantDialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder buyVowelDialog = new AlertDialog.Builder(this);
 
         LinearLayout layout = new LinearLayout(getApplicationContext());
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText vowelET = new EditText(getApplicationContext());
-        vowelET.setHint("Please enter a vowel");
         vowelET.setPadding(32, 32, 32, 32);
-        vowelET.setTextSize(24f);
+        vowelET.setTextSize(48f);
+        vowelET.setGravity(Gravity.CENTER);
+        vowelET.requestFocus();
         vowelET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+        
         vowelET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,17 +155,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         layout.addView(vowelET);
 
-        guessConsonantDialog.setView(layout);
+        buyVowelDialog.setView(layout);
 
-        guessConsonantDialog.setPositiveButton("BUY", (dialog, which) -> {
+        buyVowelDialog.setIcon(R.drawable.wheel);
+        buyVowelDialog.setTitle("Buy Vowel");
+        buyVowelDialog.setMessage("Please enter a vowel to buy");
+
+        buyVowelDialog.setPositiveButton("BUY", (dialog, which) -> {
             String vowel = vowelET.getText().toString();
             presenter.onBuyVowel(vowel);
         });
 
-        guessConsonantDialog.setNegativeButton("CANCEL", (dialog, which) -> {
+        buyVowelDialog.setNegativeButton("CANCEL", (dialog, which) -> {
         });
 
-        guessConsonantDialog.show();
+        AlertDialog dialog = buyVowelDialog.create();
+        Objects.requireNonNull(dialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
 
     private void solvePuzzleDialog() {
@@ -191,9 +207,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText consonantET = new EditText(getApplicationContext());
-        consonantET.setHint("Please enter a consonant");
         consonantET.setPadding(32, 32, 32, 32);
-        consonantET.setTextSize(24f);
+        consonantET.setTextSize(48f);
+        consonantET.setGravity(Gravity.CENTER);
+        consonantET.requestFocus();
         consonantET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
 
         consonantET.addTextChangedListener(new TextWatcher() {
@@ -220,13 +237,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         guessConsonantDialog.setView(layout);
 
+        guessConsonantDialog.setIcon(R.drawable.wheel);
+        guessConsonantDialog.setTitle("Guess Consonant");
+        guessConsonantDialog.setMessage("Please enter a consonant to guess");
+
         guessConsonantDialog.setPositiveButton("GUESS", (dialog, which) -> {
             String consonant = consonantET.getText().toString();
             presenter.onGuessConsonant(consonant);
         });
-
         guessConsonantDialog.setCancelable(false);
-        guessConsonantDialog.show();
+
+        AlertDialog dialog = guessConsonantDialog.create();
+        Objects.requireNonNull(dialog.getWindow()).setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        dialog.show();
     }
 
     @Override
