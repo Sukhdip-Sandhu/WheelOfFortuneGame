@@ -7,6 +7,31 @@
     android:background="@color/off_white"
     tools:context=".main.MainActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/wof_green"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/wheel"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/wheel"
+        app:layout_constraintBottom_toTopOf="@+id/spin_wheel_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        tools:ignore="ContentDescription" />
+
     <Button
         android:id="@+id/new_game_button"
         android:layout_width="match_parent"

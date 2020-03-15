@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">WheelOfFortune</string>
+    <string name="app_name">Wheel of Fortune</string>
 
     <!--MAIN ACTIVITY UI-->
     <string name="new_game_button">New Game</string>
