@@ -159,9 +159,11 @@ public class SecondaryDisplayPresenter implements SecondaryDisplayContract.Prese
     void onWheelFinishedSpining(String finalWheelValue) {
         switch (finalWheelValue) {
             case "Bankrupt":
+                mainPresenter.reEnableWheel();
                 bankruptPlayer(playerTurn);
                 break;
             case "Lose Turn":
+                mainPresenter.reEnableWheel();
                 nextPlayerTurn();
                 break;
             case "Free Play":

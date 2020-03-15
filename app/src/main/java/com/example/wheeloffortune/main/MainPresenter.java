@@ -103,4 +103,7 @@ public class MainPresenter implements MainContract.Presenter {
         return false;
     }
 
+    public void reEnableWheel() {
+        view.spinWheelButtonToggles(false);
+    }
 }
