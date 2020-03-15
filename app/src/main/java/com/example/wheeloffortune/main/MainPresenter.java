@@ -41,7 +41,7 @@ public class MainPresenter implements MainContract.Presenter {
         displayPresenter.onSetPlayerOne(playerOneName.toUpperCase());
         displayPresenter.onSetPlayerTwo(playerTwoName.toUpperCase());
         displayPresenter.onSetPlayerThree(playerThreeName.toUpperCase());
-        view.toggleButtons(true);
+        view.startGameButtonToggles(true);
     }
 
     @Override
@@ -52,6 +52,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onGuessConsonant(String consonant) {
         if (isConsonant(consonant)) {
+            view.spinWheelButtonToggles(false);
             displayPresenter.onGuessConsonant(consonant.toUpperCase());
         } else {
             view.displayToast("Please enter a valid consonant");
@@ -70,8 +71,8 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onSolvePuzzle(boolean isAnswerCorrect, String puzzleName) {
-        if (isAnswerCorrect) view.toggleButtons(false);
         displayPresenter.onSolvePuzzle(isAnswerCorrect, puzzleName);
+        if (isAnswerCorrect) view.startGameButtonToggles(false);
     }
 
     @Override

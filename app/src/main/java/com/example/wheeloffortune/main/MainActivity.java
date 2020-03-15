@@ -57,7 +57,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         presenter.connectToScreen(this);
 
         newGameButton.setOnClickListener(v -> createNewGameDialog());
-        spinWheelButton.setOnClickListener(v -> presenter.onSpinWheel());
+        spinWheelButton.setOnClickListener(v -> {
+            spinWheelButtonToggles(true);
+            presenter.onSpinWheel();
+        });
         buyVowelButton.setOnClickListener(v -> buyVowelDialog());
         solvePuzzleButton.setOnClickListener(v -> solvePuzzleDialog());
         switchPlayerButton.setOnClickListener(v -> presenter.onSwitchPlayer());
@@ -184,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void toggleButtons(boolean startGame) {
+    public void startGameButtonToggles(boolean startGame) {
         if (startGame) {
             newGameButton.setEnabled(false);
             spinWheelButton.setEnabled(true);
@@ -197,6 +200,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             solvePuzzleButton.setEnabled(false);
             switchPlayerButton.setEnabled(false);
         }
+    }
+
+    @Override
+    public void spinWheelButtonToggles(boolean onSpinWheel) {
+        spinWheelButton.setEnabled(!onSpinWheel);
+        buyVowelButton.setEnabled(!onSpinWheel);
+        solvePuzzleButton.setEnabled(!onSpinWheel);
+        switchPlayerButton.setEnabled(!onSpinWheel);
     }
 
     @Override
