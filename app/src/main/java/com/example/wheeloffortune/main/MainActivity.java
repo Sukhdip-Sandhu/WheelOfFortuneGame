@@ -224,6 +224,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    public void toggleButtons(boolean startGame) {
+        if (startGame) {
+            newGameButton.setEnabled(false);
+            spinWheelButton.setEnabled(true);
+            guessConsonantButton.setEnabled(true);
+            buyVowelButton.setEnabled(true);
+            solvePuzzleButton.setEnabled(true);
+            switchPlayerButton.setEnabled(true);
+        } else {
+            newGameButton.setEnabled(true);
+            spinWheelButton.setEnabled(false);
+            guessConsonantButton.setEnabled(false);
+            buyVowelButton.setEnabled(false);
+            solvePuzzleButton.setEnabled(false);
+            switchPlayerButton.setEnabled(false);
+        }
+    }
+
+    @Override
     public void displayToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

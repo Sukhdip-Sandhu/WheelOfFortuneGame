@@ -3,6 +3,7 @@ package com.example.wheeloffortune.main;
 public interface MainContract {
 
     interface View {
+        void toggleButtons(boolean startGame);
         void displayToast(String msg);
     }
 

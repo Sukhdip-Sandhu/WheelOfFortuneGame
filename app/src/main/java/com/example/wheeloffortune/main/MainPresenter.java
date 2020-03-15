@@ -41,6 +41,7 @@ public class MainPresenter implements MainContract.Presenter {
         displayPresenter.onSetPlayerOne(playerOneName.toUpperCase());
         displayPresenter.onSetPlayerTwo(playerTwoName.toUpperCase());
         displayPresenter.onSetPlayerThree(playerThreeName.toUpperCase());
+        view.toggleButtons(true);
     }
 
     @Override
@@ -68,6 +69,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onSolvePuzzle(boolean isAnswerCorrect, String puzzleName) {
+        if (isAnswerCorrect) view.toggleButtons(false);
         displayPresenter.onSolvePuzzle(isAnswerCorrect, puzzleName);
     }
 
@@ -78,22 +80,14 @@ public class MainPresenter implements MainContract.Presenter {
 
     private boolean isVowel(String vowel) {
         String[] vowels = {"A", "E", "I", "O", "U"};
-        for (String v : vowels) {
-            if (v.equalsIgnoreCase(vowel)) {
-                return true;
-            }
-        }
+        for (String v : vowels) if (v.equalsIgnoreCase(vowel)) return true;
         return false;
     }
 
     private boolean isConsonant(String consonant) {
         String[] consonants = {"B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N",
                 "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"};
-        for (String c : consonants) {
-            if (c.equalsIgnoreCase(consonant)) {
-                return true;
-            }
-        }
+        for (String c : consonants) if (c.equalsIgnoreCase(consonant)) return true;
         return false;
     }
 
