@@ -5,9 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Selection;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.wheeloffortune.R;
 
@@ -120,9 +126,31 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText consonantET = new EditText(getApplicationContext());
-        consonantET.setHint("Consonant");
+        consonantET.setHint("Please enter a consonant");
         consonantET.setPadding(32, 32, 32, 32);
         consonantET.setTextSize(24f);
+        consonantET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+
+        consonantET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null && s.length() > 1) {
+                    consonantET.setText(s.subSequence(1, s.length()));
+                    consonantET.setSelection(1);
+                }
+            }
+        });
+
         layout.addView(consonantET);
 
         guessConsonantDialog.setView(layout);
@@ -145,9 +173,28 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         layout.setOrientation(LinearLayout.VERTICAL);
 
         final EditText vowelET = new EditText(getApplicationContext());
-        vowelET.setHint("Consonant");
+        vowelET.setHint("Please enter a vowel");
         vowelET.setPadding(32, 32, 32, 32);
         vowelET.setTextSize(24f);
+        vowelET.setFilters(new InputFilter[]{new InputFilter.LengthFilter(2)});
+        vowelET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null && s.length() > 1) {
+                    vowelET.setText(s.subSequence(1, s.length()));
+                    vowelET.setSelection(1);
+                }
+            }
+        });
+
         layout.addView(vowelET);
 
         guessConsonantDialog.setView(layout);
@@ -172,4 +219,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         isPuzzleCorrectDialog.show();
     }
 
+    @Override
+    public void displayToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }

@@ -50,12 +50,20 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onGuessConsonant(String consonant) {
-        displayPresenter.onGuessConsonant(consonant.toUpperCase());
+        if (isConsonant(consonant)) {
+            displayPresenter.onGuessConsonant(consonant.toUpperCase());
+        } else {
+            view.displayToast("Please enter a valid consonant");
+        }
     }
 
     @Override
     public void onBuyVowel(String vowel) {
-        displayPresenter.onBuyVowel(vowel.toUpperCase());
+        if (isVowel(vowel)) {
+            displayPresenter.onBuyVowel(vowel.toUpperCase());
+        } else {
+            view.displayToast("Please enter a valid vowel");
+        }
     }
 
     @Override
@@ -67,4 +75,26 @@ public class MainPresenter implements MainContract.Presenter {
     public void onSwitchPlayer() {
         displayPresenter.onSwitchPlayer();
     }
+
+    private boolean isVowel(String vowel) {
+        String[] vowels = {"A", "E", "I", "O", "U"};
+        for (String v : vowels) {
+            if (v.equalsIgnoreCase(vowel)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isConsonant(String consonant) {
+        String[] consonants = {"B", "C", "D", "F", "G", "H", "J", "K", "L", "M", "N",
+                "P", "Q", "R", "S", "T", "V", "W", "X", "Y", "Z"};
+        for (String c : consonants) {
+            if (c.equalsIgnoreCase(consonant)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

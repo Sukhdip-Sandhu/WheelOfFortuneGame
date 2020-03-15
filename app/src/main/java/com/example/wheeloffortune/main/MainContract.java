@@ -3,7 +3,7 @@ package com.example.wheeloffortune.main;
 public interface MainContract {
 
     interface View {
-
+        void displayToast(String msg);
     }
 
     interface Presenter {
